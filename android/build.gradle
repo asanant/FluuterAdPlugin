@@ -1,0 +1,60 @@
+group 'sport583.ad_sport_plugin'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    sourceSets {
+        main.java.srcDirs += 'src/main'
+    }
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    // implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation files('libs/open_ad_sdk.aar')
+//    implementation files('libs/android-query-full.0.26.7.jar')
+    implementation('com.github.androidquery:androidquery:0.26.9'){
+        exclude module: 'androidquery'
+    }
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+}
